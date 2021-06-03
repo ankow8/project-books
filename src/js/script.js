@@ -20,29 +20,26 @@
   const favoriteBooks = [];
 
   function initActions(clickedImage){
-    const booksImage = booksList.querySelectorAll('.book__image');
-    //console.log(booksImage);
-    for(let bookImage of booksImage){
-      //console.log(bookImage);
-      bookImage.addEventListener('dblclick', function(event){
-        //console.log('książka się kliknęła');
-        event.preventDefault();
-
-        if(bookImage.classList.contains('favorite')){
-          bookImage.classList.remove('favorite');
+    booksList.addEventListener('dblclick', function(event){
+      //console.log('książka się kliknęła');
+      event.preventDefault();
+      const clickedElement = event.target.offsetParent;
+      console.log('clickedElement', clickedElement);
+      if(clickedElement.classList.contains('book__image')){
+        if(clickedElement.classList.contains('favorite')){
+          clickedElement.classList.remove('favorite');
           const removedBookId = favoriteBooks.indexOf(clickedImage);  //mam wrazenie ze nie usuwa to id co trzeba
           favoriteBooks.splice(removedBookId, 1);
         } else {
-          bookImage.classList.add('favorite');
-          const bookId = bookImage.getAttribute('data-id');
+          clickedElement.classList.add('favorite');
+          const bookId = clickedElement.getAttribute('data-id');
           favoriteBooks.push(bookId);
         }
-
-      });
-    }
-    //console.log(booksImage);
+      }
+    });
   }
   initActions();
   console.log(favoriteBooks);
+  //console.log(booksList);
 
 }
